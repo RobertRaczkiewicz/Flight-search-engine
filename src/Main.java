@@ -24,19 +24,25 @@ public class Main {
 
         ArrayList<String> cities=database.getCities();
         System.out.println(cities);
+
+        database.getCheapestFlight();
+
+
     }
 }
         class Flight{
             String departure;
             String arrival;
+            int price;
 
-            public Flight (String departure, String arrival){
+            public Flight (String departure, String arrival, int price){
             this.departure=departure;
             this.arrival=arrival;
+            this.price=price;
             }
 
             public String getDetails() {
-                return "Flight from " + this.departure + " to " + this.arrival;
+                return "Flight from " + this.departure + " to " + this.arrival+ "costs" + this.price;
             }
         }
 
@@ -46,17 +52,17 @@ public class Main {
 
             public FlightDatabase(){
 
-                this.flights.add(new Flight("Warsaw", "Berlin"));
-                this.flights.add(new Flight("Warsaw","Madrid"));
-                this.flights.add(new Flight("Warsaw","London"));
-                this.flights.add(new Flight("Warsaw","Roma"));
-                this.flights.add(new Flight("Berlin","London"));
-                this.flights.add(new Flight("Berlin","Roma"));
-                this.flights.add(new Flight("Berlin","Paris"));
-                this.flights.add(new Flight("Paris","Athens"));
-                this.flights.add(new Flight("Paris","Amsterdam"));
-                this.flights.add(new Flight("Amsterdam","Lisbon"));
-                this.flights.add(new Flight("Lisbon","London"));
+                this.flights.add(new Flight("Warsaw", "Berlin", 100));
+                this.flights.add(new Flight("Warsaw","Madrid", 150));
+                this.flights.add(new Flight("Warsaw","London", 200));
+                this.flights.add(new Flight("Warsaw","Roma",250));
+                this.flights.add(new Flight("Berlin","London",80));
+                this.flights.add(new Flight("Berlin","Roma",120));
+                this.flights.add(new Flight("Berlin","Paris",50));
+                this.flights.add(new Flight("Paris","Athens",120));
+                this.flights.add(new Flight("Paris","Amsterdam",40));
+                this.flights.add(new Flight("Amsterdam","Lisbon",200));
+                this.flights.add(new Flight("Lisbon","London",180));
             }
             public void checkIfFlightExists(String departure, String arrival){
                 System.out.println("Departure is: "+ departure+ " and arrival is: "+arrival);
@@ -117,7 +123,23 @@ public class Main {
                     }
                 }
                 return cities;
-            }
+                }
+
+                public void getCheapestFlight(){
+                    int cheapestFlight=10000;
+                    int numberOfFlight = 0;
+                for (int i=0; i<this.flights.size();i++){
+                    Flight flight=this.flights.get(i);
+                    if(flight.price<cheapestFlight){
+                        cheapestFlight=flight.price;
+                        numberOfFlight=i;
+
+                    }
+                }
+                Flight flight=this.flights.get((numberOfFlight));
+                    System.out.println("The cheapest fligt in our oferts is from: "+flight.departure+ " to: "+flight.arrival+" and this flight costs: "+flight.price);
+
+                }
         }
 
 

@@ -21,6 +21,9 @@ public class Main {
         String arrival=scanner.nextLine();
 
         database.checkIfFlightExists(departure, arrival);
+
+        ArrayList<String> cities=database.getCities();
+        System.out.println(cities);
     }
 }
         class Flight{
@@ -39,6 +42,7 @@ public class Main {
 
         class FlightDatabase{
             ArrayList<Flight> flights= new ArrayList<Flight>();
+            private java.lang.Object Object;
 
             public FlightDatabase(){
 
@@ -100,5 +104,20 @@ public class Main {
                     System.out.println("Sorry, there are currently no flights to the selected city!!!");
                 }
         }
-}
+
+            public ArrayList<String> getCities() {
+                ArrayList<String> cities= new ArrayList<>();
+                for (int i=0; i<this.flights.size();i++){
+                    Flight flight= this.flights.get(i);
+                    if (!cities.contains(flight.departure)){
+                        cities.add(flight.departure);
+                    }
+                    if (!cities.contains(flight.arrival)){
+                        cities.add(flight.arrival);
+                    }
+                }
+                return cities;
+            }
+        }
+
 

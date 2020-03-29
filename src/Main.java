@@ -25,7 +25,8 @@ public class Main {
         ArrayList<String> cities=database.getCities();
         System.out.println(cities);
 
-        database.getCheapestFlight();
+        Flight cheapestFlight= database.getCheapestFlight();
+        System.out.println("Cheapest flight: "+ cheapestFlight.getDetails());
 
 
     }
@@ -42,7 +43,7 @@ public class Main {
             }
 
             public String getDetails() {
-                return "Flight from " + this.departure + " to " + this.arrival+ "costs" + this.price;
+                return "Flight from " + this.departure + " to " + this.arrival+ " costs: " + this.price +"$";
             }
         }
 
@@ -125,19 +126,14 @@ public class Main {
                 return cities;
                 }
 
-                public void getCheapestFlight(){
-                    int cheapestFlight=10000;
-                    int numberOfFlight = 0;
-                for (int i=0; i<this.flights.size();i++){
-                    Flight flight=this.flights.get(i);
-                    if(flight.price<cheapestFlight){
-                        cheapestFlight=flight.price;
-                        numberOfFlight=i;
-
+                public Flight getCheapestFlight(){
+                    Flight cheapestFlight=null;
+                    for (Flight flight: this.flights){
+                        if(cheapestFlight ==null || flight.price<cheapestFlight.price){
+                        cheapestFlight=flight;
                     }
                 }
-                Flight flight=this.flights.get((numberOfFlight));
-                    System.out.println("The cheapest fligt in our oferts is from: "+flight.departure+ " to: "+flight.arrival+" and this flight costs: "+flight.price);
+                return cheapestFlight;
 
                 }
         }

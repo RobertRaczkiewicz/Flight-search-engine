@@ -34,6 +34,14 @@ public class Main {
         Flight cheapestFightFromCity=database.getCheapestFightFromCity(fromCityCheapest);
         System.out.println("Cheapest flight is: "+ cheapestFightFromCity.getDetails());
 
+        System.out.println("Please select from which city you want to take off?");
+        String start=scanner.nextLine();
+        System.out.println("Please select in which city you want to land");
+        String end=scanner.nextLine();
+
+        ArrayList<Journey> journeys = database.getFlights(start, end);
+        System.out.println(journeys);
+
 
     }
 }
@@ -152,11 +160,23 @@ public class Main {
                         if (cheapestFlight == null || flight.price < cheapestFlight.price) {
                         cheapestFlight = flight;
                         }
-
                     }
                 }
                 return cheapestFlight;
             }
+           public ArrayList<Flight> getFlights (String start, String end){
+                ArrayList<Flight> starting = getFlightsFromCity(start);
+                ArrayList<Flight> ending= getFlightsToCity(end);
+                ArrayList<Flight> result = new ArrayList<Flight>()
+                for (Flight first : starting){
+                    for (Flight second : ending){
+                        if (first.arrival.equals(second.departure)){
+                            result.add(new Journey(first, second));
+                        }
+                    }
+                }
+               return result;
+           }
         }
 
 

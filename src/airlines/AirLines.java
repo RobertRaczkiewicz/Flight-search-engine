@@ -23,14 +23,14 @@ public class AirLines {
         try{
             Class.forName(AirLines.DRIVER);
         } catch (ClassNotFoundException e){
-            System.err.println("Brak sterownika JDBC");
+            System.err.println("No driver JDBC");
             e.printStackTrace();
         }
         try {
             conn = DriverManager.getConnection(DB_URL);
             stat = conn.createStatement();
         } catch (SQLException e) {
-            System.err.println("Problem z otwarciem polaczenia");
+            System.err.println("Problem with opening the connection");
             e.printStackTrace();
         }
 
@@ -39,14 +39,14 @@ public class AirLines {
     }
     public boolean createTables()  {
 
-        String createFlights = "CREATE TABLE IF NOT EXISTS Flights (id_Flights INTEGER PRIMARY KEY AUTOINCREMENT, departure varchar(255), arrival varchar(255),price INTEGER PRIMARY KEY)";
+        String createFlights = "CREATE TABLE IF NOT EXISTS Flights (id_Flights INTEGER PRIMARY KEY AUTOINCREMENT, departure varchar(255), arrival varchar(255),price INTEGER)";
 
         try {
 
             stat.execute(createFlights);
 
         } catch (SQLException e) {
-            System.err.println("Blad przy tworzeniu tabeli");
+            System.err.println("Error during table creation");
             e.printStackTrace();
             return false;
         }
@@ -57,13 +57,13 @@ public class AirLines {
     public boolean insertDataBaseFlights(String departure, String arrival, int price) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "insert into Flights values (NULL, ?, ?);");
+                    "insert into Flights values (NULL, ?, ?, ?);");
             prepStmt.setString(1, departure);
             prepStmt.setString(2, arrival);
             prepStmt.setInt(3, price);
             prepStmt.execute();
         } catch (SQLException e) {
-            System.err.println("Blad przy wypozyczaniu");
+            System.err.println("Error in creating list of flights");
             return false;
         }
         return true;
@@ -93,7 +93,7 @@ public class AirLines {
         try {
                         conn.close();
         } catch (SQLException e) {
-            System.err.println("Problem z zamknieciem polaczenia");
+            System.err.println("Problem with closing the connection");
             e.printStackTrace();
         }
     }

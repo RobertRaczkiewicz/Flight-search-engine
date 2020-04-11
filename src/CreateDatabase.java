@@ -16,7 +16,7 @@ public class CreateDatabase {
         List<DataBaseFlights> flights = b.selectFlights();
 
 
-        System.out.println("Lista książek:");
+        System.out.println("List of flights in the database:");
         for (DataBaseFlights k : flights)
             System.out.println(k);
 

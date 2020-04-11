@@ -1,10 +1,10 @@
 package model;
 
 public class DataBaseFlights {
+    public int price;
     private int id;
     private String departure;
     private String arrival;
-    private int price;
 
     public int getId() {
         return id;

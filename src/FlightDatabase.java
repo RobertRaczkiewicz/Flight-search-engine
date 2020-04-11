@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.util.List;
+
+import airlines.AirLines;
+import model.DataBaseFlights;
 
 class FlightDatabase {
     ArrayList<Flight> flights = new ArrayList<Flight>();
@@ -21,12 +25,14 @@ class FlightDatabase {
 
     public void checkIfFlightExists(String departure, String arrival) {
         System.out.println("Departure is: " + departure + " and arrival is: " + arrival);
+        AirLines b = new AirLines();
+        List<DataBaseFlights> flights = b.selectFlights();
+        for (int i = 0; i < flights.size(); i++) {
+            DataBaseFlights flight = flights.get(i);
 
-        for (int i = 0; i < this.flights.size(); i++) {
-            Flight flight = this.flights.get(i);
-
-            if (departure.equals(flight.departure) && arrival.equals(flight.arrival)) {
+            if (departure.equals(flight.getDeparture()) && arrival.equals(flight.getArrival())) {
                 System.out.println("Flight exists!!!");
+                System.out.println("Flight number:"+flight);
                 return;
             }
         }
@@ -34,14 +40,16 @@ class FlightDatabase {
     }
 
     public void getFlightsFromCity(String fromCity) {
+        AirLines b = new AirLines();
+        List<DataBaseFlights> flights = b.selectFlights();
         System.out.println("Below is a list of flights from the city: " + fromCity);
         boolean isNotFound = true;
 
-        for (int i = 0; i < this.flights.size(); i++) {
-            Flight flight = this.flights.get(i);
+        for (int i = 0; i < flights.size(); i++) {
+            DataBaseFlights flight = flights.get(i);
 
-            if (fromCity.equals((flight.departure))) {
-                System.out.println("Departure: " + flight.departure + " Arrival: " + flight.arrival);
+            if (fromCity.equals((flight.getDeparture()))) {
+                System.out.println("Flight number: " + flight);
                 isNotFound = false;
             }
         }
@@ -51,14 +59,16 @@ class FlightDatabase {
     }
 
     public void getFlightsToCity(String toCity) {
+        AirLines b = new AirLines();
+        List<DataBaseFlights> flights = b.selectFlights();
         System.out.println("Below is a list of flights to the city: " + toCity);
         boolean isNotFound = true;
 
-        for (int i = 0; i < this.flights.size(); i++) {
-            Flight flight = this.flights.get(i);
+        for (int i = 0; i < flights.size(); i++) {
+            DataBaseFlights flight = flights.get(i);
 
-            if (toCity.equals((flight.arrival))) {
-                System.out.println("Departure: " + flight.departure + " Arrival: " + flight.arrival);
+            if (toCity.equals((flight.getArrival()))) {
+                System.out.println("Flight number: " + flight);
                 isNotFound = false;
             }
         }
@@ -68,35 +78,42 @@ class FlightDatabase {
     }
 
     public ArrayList<String> getCities() {
+        AirLines b = new AirLines();
+        List<DataBaseFlights> flights = b.selectFlights();
         ArrayList<String> cities = new ArrayList<>();
-        for (int i = 0; i < this.flights.size(); i++) {
-            Flight flight = this.flights.get(i);
-            if (!cities.contains(flight.departure)) {
-                cities.add(flight.departure);
+        for (int i = 0; i < flights.size(); i++) {
+            DataBaseFlights flight = flights.get(i);
+            if (!cities.contains(flight.getDeparture())) {
+                cities.add(flight.getDeparture());
             }
-            if (!cities.contains(flight.arrival)) {
-                cities.add(flight.arrival);
+            if (!cities.contains(flight.getArrival())) {
+                cities.add(flight.getArrival());
             }
         }
         return cities;
     }
 
-    public Flight getCheapestFlight() {
-        Flight cheapestFlight = null;
-        for (Flight flight : this.flights) {
-            if (cheapestFlight == null || flight.price < cheapestFlight.price) {
+    public DataBaseFlights getCheapestFlight() {
+        AirLines b = new AirLines();
+        List<DataBaseFlights> flights = b.selectFlights();
+        DataBaseFlights cheapestFlight = null;
+        for (int i = 0; i < flights.size(); i++) {
+            DataBaseFlights flight = flights.get(i);
+            if (cheapestFlight == null || flight.getPrice() < cheapestFlight.price) {
                 cheapestFlight = flight;
             }
         }
         return cheapestFlight;
     }
 
-    public Flight getCheapestFightFromCity(String fromCity) {
-        Flight cheapestFlight = null;
-        for (int i = 0; i < this.flights.size(); i++) {
-            Flight flight = this.flights.get(i);
-            if (fromCity.equals(flight.departure)) {
-                if (cheapestFlight == null || flight.price < cheapestFlight.price) {
+    public DataBaseFlights getCheapestFightFromCity(String fromCity) {
+        AirLines b = new AirLines();
+        List<DataBaseFlights> flights = b.selectFlights();
+        DataBaseFlights cheapestFlight = null;
+        for (int i = 0; i < flights.size(); i++) {
+            DataBaseFlights flight = flights.get(i);
+            if (fromCity.equals(flight.getDeparture())) {
+                if (cheapestFlight == null || flight.getPrice() < cheapestFlight.price) {
                     cheapestFlight = flight;
                 }
             }

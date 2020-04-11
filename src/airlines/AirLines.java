@@ -39,11 +39,11 @@ public class AirLines {
     }
     public boolean createTables()  {
 
-        String createDataBaseFlights = "CREATE TABLE IF NOT EXISTS DataBaseFlights (id_DataBaseFlights INTEGER PRIMARY KEY AUTOINCREMENT, departure varchar(255), arrival varchar(255),price INTEGER PRIMARY KEY AUTOINCREMENT)";
+        String createFlights = "CREATE TABLE IF NOT EXISTS Flights (id_Flights INTEGER PRIMARY KEY AUTOINCREMENT, departure varchar(255), arrival varchar(255),price INTEGER PRIMARY KEY)";
 
         try {
 
-            stat.execute(createDataBaseFlights);
+            stat.execute(createFlights);
 
         } catch (SQLException e) {
             System.err.println("Blad przy tworzeniu tabeli");
@@ -57,10 +57,10 @@ public class AirLines {
     public boolean insertDataBaseFlights(String departure, String arrival, int price) {
         try {
             PreparedStatement prepStmt = conn.prepareStatement(
-                    "insert into DataBaseFlights values (NULL, ?, ?);");
+                    "insert into Flights values (NULL, ?, ?);");
             prepStmt.setString(1, departure);
             prepStmt.setString(2, arrival);
-            prepStmt.setString(3, price);
+            prepStmt.setInt(3, price);
             prepStmt.execute();
         } catch (SQLException e) {
             System.err.println("Blad przy wypozyczaniu");
@@ -69,29 +69,29 @@ public class AirLines {
         return true;
     }
 
-    public List<DataBaseFlights> selectDataBaseFlights() {
-        List<DataBaseFlights> ksiazki = new LinkedList<DataBaseFlights>();
+    public List<DataBaseFlights> selectFlights() {
+        List<DataBaseFlights> flights = new LinkedList<DataBaseFlights>();
         try {
-            ResultSet result = stat.executeQuery("SELECT * FROM DataBaseFlights");
+            ResultSet result = stat.executeQuery("SELECT * FROM Flights");
             int id, price;
             String departure, arrival;
             while(result.next()) {
-                id = result.getInt("DataBaseFlights");
+                id = result.getInt("id_Flights");
                 arrival = result.getString("arrival");
                 departure = result.getString("departure");
-                price = result.getInt(price);
-                DataBaseFlights.add(new DataBaseFlights(id, departure, arrival, price));
+                price = result.getInt("price");
+                flights.add(new DataBaseFlights(id, departure, arrival, price));
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-        return ksiazki;
+        return flights;
     }
 
     public void closeConnection() {
         try {
-            conn.close();
+                        conn.close();
         } catch (SQLException e) {
             System.err.println("Problem z zamknieciem polaczenia");
             e.printStackTrace();

@@ -15,10 +15,23 @@ class CreateDatabase {
                 System.out.println("Thank you!");
                 break;
             }
+            else if (option == 1) {
+                CreateDatabase menu= new CreateDatabase();
+                menuCreateDatabase();
+            }
             else if (option != 1 && option != 2) {
                 System.out.println("Incorrect number of option. Please, try again!");
             }
         } while (option != 2);
+
+    }
+    public void menuCreateDatabase(){
+        System.out.println("Please, choose what do you want to do:");
+        System.out.println("1 - Display list of flights");
+        System.out.println("2 - Add a new flight");
+        System.out.println("3 - Remove an existing flight");
+        Scanner scanner = new Scanner(System.in);
+        int a=scanner.nextInt();
 
     }
 }

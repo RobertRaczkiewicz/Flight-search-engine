@@ -89,6 +89,20 @@ public class AirLines {
         return flights;
     }
 
+    public boolean deleteDataBaseFlights(int id) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "DELETE FROM Flights WHERE id_Flights= '"+id+"'    ");
+
+            prepStmt.execute();
+
+        } catch (SQLException e) {
+            System.err.println("The flight cannot be removed");
+            return false;
+        }
+        return true;
+    }
+
     public void closeConnection() {
         try {
                         conn.close();

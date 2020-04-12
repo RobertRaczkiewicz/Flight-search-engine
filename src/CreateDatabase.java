@@ -47,8 +47,8 @@ class CreateDatabase {
         }
     }
     public void listOfFlights(){
-        AirLines b = new AirLines();
-        List<DataBaseFlights> flights = b.selectFlights();
+        AirLines z = new AirLines();
+        List<DataBaseFlights> flights = z.selectFlights();
 
         System.out.println("List of flights in the database:");
         for (DataBaseFlights k : flights)
@@ -60,8 +60,8 @@ class CreateDatabase {
         String addCityDeparture = scanner.nextLine();
         System.out.println("Please input to which city want you add flight:");
         String addCityArrival = scanner.nextLine();
-        AirLines b=new AirLines();
-        List<DataBaseFlights> flights=b.selectFlights();
+        AirLines y=new AirLines();
+        List<DataBaseFlights> flights=y.selectFlights();
 
         for (int i=0; i< flights.size(); i++){
             DataBaseFlights flight= flights.get(i);
@@ -69,28 +69,25 @@ class CreateDatabase {
             if (addCityDeparture.equals(flight.getDeparture()) && addCityArrival.equals(flight.getArrival())) {
                 System.out.println("Flight exists!!!");
                 System.out.println("Flight number:" + flight);
-                return;
-            }
-            else {
-                System.out.println("Please input the price of the flight from: " +addCityDeparture+ " to: " + addCityArrival);
-                int cost=scanner.nextInt();
-                b.insertDataBaseFlights(addCityDeparture,addCityArrival,cost);
-                System.out.println("A new flight has been added!");
-                return;
             }
         }
+//        System.out.println("Please input the price of the flight from: " +addCityDeparture+ " to: " + addCityArrival);
+//        int cost=scanner.nextInt();
+//        y.insertDataBaseFlights(addCityDeparture,addCityArrival,cost);
+//        System.out.println("A new flight has been added!");
     }
     public void deleteFlight(){
-        AirLines b=new AirLines();
-        List<DataBaseFlights> flights=b.selectFlights();
+        AirLines x=new AirLines();
+        FlightDatabase database = new FlightDatabase();
+        List<DataBaseFlights> flights=x.selectFlights();
         System.out.println("Please select the city from which you are interested in the departure of the plane:");
         scanner.nextLine();
         String fromCity=scanner.nextLine();
+        database.getFlightsFromCity(fromCity);
 
-        FlightDatabase database = new FlightDatabase();
         System.out.println("Which ID flight want you delete?");
         int id=scanner.nextInt();
-        b.deleteDataBaseFlights(id);
+        x.deleteDataBaseFlights(id);
     }
 }
 

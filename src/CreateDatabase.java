@@ -1,36 +1,27 @@
-import java.util.List;
+import java.util.Scanner;
 
-import model.DataBaseFlights;
-import airlines.AirLines;
+class CreateDatabase {
+    int option;
+    Scanner scanner = new Scanner(System.in);
 
-public class CreateDatabase {
-    public static void main(String[] args) {
+    public void createDatabase() {
+        do {
+            System.out.println("Do you want work with flight database?");
+            System.out.println("1 - YES");
+            System.out.println("2 - NO");
+            option = scanner.nextInt();
 
-        AirLines b = new AirLines();
+            if (option == 2) {
+                System.out.println("Thank you!");
+                break;
+            }
+            else if (option != 1 && option != 2) {
+                System.out.println("Incorrect number of option. Please, try again!");
+            }
+        } while (option != 2);
 
-        b.insertDataBaseFlights("Warsaw", "Berlin", 500);
-        b.insertDataBaseFlights("Berlin", "London", 300);
-        b.insertDataBaseFlights("Madrid", "Paris", 700);
-        b.insertDataBaseFlights("Warsaw", "Madrid", 150);
-        b.insertDataBaseFlights("Warsaw", "London", 200);
-        b.insertDataBaseFlights("Warsaw", "Roma", 250);
-        b.insertDataBaseFlights("Berlin", "London", 80);
-        b.insertDataBaseFlights("Berlin", "Roma", 120);
-        b.insertDataBaseFlights("Berlin", "Paris", 50);
-        b.insertDataBaseFlights("Paris", "Athens", 120);
-        b.insertDataBaseFlights("Paris", "Amsterdam", 40);
-        b.insertDataBaseFlights("Amsterdam", "Lisbon", 200);
-        b.insertDataBaseFlights("Lisbon", "London", 180);
-
-        List<DataBaseFlights> flights = b.selectFlights();
-
-
-        System.out.println("List of flights in the database:");
-        for (DataBaseFlights k : flights)
-            System.out.println(k);
-
-        b.closeConnection();
     }
-
 }
+
+
 

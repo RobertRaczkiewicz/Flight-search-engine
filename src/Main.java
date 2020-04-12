@@ -9,11 +9,15 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+
         FlightDatabase database = new FlightDatabase();
         AirLines b = new AirLines();
         List<DataBaseFlights> flights = b.selectFlights();
 
         b.closeConnection();
+
+        CreateDatabase option= new CreateDatabase();
+        option.createDatabase();
 
         System.out.println("Please select the city from which you are interested in the departure of the plane:");
         String fromCity=scanner.nextLine();

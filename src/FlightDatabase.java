@@ -8,21 +8,6 @@ class FlightDatabase {
     ArrayList<Flight> flights = new ArrayList<Flight>();
     private java.lang.Object Object;
 
-    public FlightDatabase() {
-
-        this.flights.add(new Flight("Warsaw", "Berlin", 100));
-        this.flights.add(new Flight("Warsaw", "Madrid", 150));
-        this.flights.add(new Flight("Warsaw", "London", 200));
-        this.flights.add(new Flight("Warsaw", "Roma", 250));
-        this.flights.add(new Flight("Berlin", "London", 80));
-        this.flights.add(new Flight("Berlin", "Roma", 120));
-        this.flights.add(new Flight("Berlin", "Paris", 50));
-        this.flights.add(new Flight("Paris", "Athens", 120));
-        this.flights.add(new Flight("Paris", "Amsterdam", 40));
-        this.flights.add(new Flight("Amsterdam", "Lisbon", 200));
-        this.flights.add(new Flight("Lisbon", "London", 180));
-    }
-
     public void checkIfFlightExists(String departure, String arrival) {
         System.out.println("Departure is: " + departure + " and arrival is: " + arrival);
         AirLines b = new AirLines();

@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import java.util.List;
+
+import model.DataBaseFlights;
+import airlines.AirLines;
 
 class CreateDatabase {
     int option;
@@ -32,7 +36,18 @@ class CreateDatabase {
         System.out.println("3 - Remove an existing flight");
         Scanner scanner = new Scanner(System.in);
         int a=scanner.nextInt();
+        if (a==1){
+            listOfFlights();
+        }
 
+    }
+    public void listOfFlights(){
+        AirLines b = new AirLines();
+        List<DataBaseFlights> flights = b.selectFlights();
+
+        System.out.println("List of flights in the database:");
+        for (DataBaseFlights k : flights)
+            System.out.println(k);
     }
 }
 
